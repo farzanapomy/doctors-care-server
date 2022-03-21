@@ -25,7 +25,7 @@ async function run() {
     try {
         await client.connect()
         const database = client.db('doctors-care')
-        const doctorsCollection = database.collection('doctors')
+        const serviceCollection = database.collection('services')
         const usersCollection = database.collection('users')
         const reviewCollection = database.collection('reviews')
         console.log('hello');
@@ -34,20 +34,20 @@ async function run() {
         app.get('/blogs/:id', async (req, res) => {
             const id = req.params.id
             const query = { '_id': ObjectId(id) }
-            const result = await doctorsCollection.findOne(query)
+            const result = await serviceCollection.findOne(query)
             res.json(result)
         })
 
         app.post('/doctors', async (req, res) => {
             const data = req.body;
-            const result = await doctorsCollection.insertOne(data)
+            const result = await serviceCollection.insertOne(data)
             res.json(result)
         })
 
         app.delete('/blogs/:id', async (req, res) => {
             const id = req.params.id
             const query = { '_id': ObjectId(id) }
-            const result = await doctorsCollection.deleteOne(query)
+            const result = await serviceCollection.deleteOne(query)
             res.json(result)
         })
         app.put('/blogs/:id', async (req, res) => {
@@ -58,7 +58,7 @@ async function run() {
             const updateDoc = {
                 $set: data
             }
-            const result = await doctorsCollection.updateOne(filter, updateDoc, options)
+            const result = await serviceCollection.updateOne(filter, updateDoc, options)
             res.json(result)
         })
 
