@@ -68,6 +68,7 @@ async function run() {
             res.json(result)
         })
 
+
         app.put('/appointments/:id', async (req, res) => {
             const id = req.params.id
             const status = req.body.status
@@ -90,6 +91,12 @@ async function run() {
             const data = req.body;
             const result = await serviceCollection.insertOne(data)
             console.log(result);
+            res.json(result)
+        })
+
+        app.get('/services', async (req, res) => {
+            const cursor = serviceCollection.find({});
+            const result = await cursor.toArray();
             res.json(result)
         })
 
